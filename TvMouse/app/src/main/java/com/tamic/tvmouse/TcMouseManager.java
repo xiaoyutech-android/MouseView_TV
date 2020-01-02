@@ -161,12 +161,12 @@ public class TcMouseManager implements TcMouseView.OnMouseListener {
         if (action == MotionEvent.ACTION_HOVER_MOVE) {
             Log.d(TAG, "sendMotionEvent ,dispatchGenericMotionEvent");
             motionEvent.setSource(InputDevice.SOURCE_CLASS_POINTER);
-            mMouseView.dispatchGenericMotionEvent(motionEvent);
-            //mParentView.dispatchGenericMotionEvent(motionEvent);
+//            mMouseView.dispatchGenericMotionEvent(motionEvent);
+            mParentView.dispatchGenericMotionEvent(motionEvent);
         } else {
             Log.d(TAG, "sendMotionEvent ,dispatchTouchEvent");
-            //mParentView.dispatchTouchEvent(motionEvent);
-            mMouseView.dispatchTouchEvent(motionEvent);
+            mParentView.dispatchTouchEvent(motionEvent);
+//            mMouseView.dispatchTouchEvent(motionEvent);
         }
     }
 
