@@ -24,6 +24,7 @@ import android.widget.ImageView;
  * @author liuyongkui
  */
 public class TcMouseView extends FrameLayout {
+    private static final String TAG = "[2]TcMouseView  ";
 
     private int mOffsetX;
     private int mOffsetY;
@@ -44,8 +45,6 @@ public class TcMouseView extends FrameLayout {
     private int mMoveDis = TcMouseManager.MOUSE_MOVE_STEP;
 
     private OnMouseListener mOnMouseListener;
-
-
 
 
     public TcMouseView(Context context) {
@@ -98,6 +97,7 @@ public class TcMouseView extends FrameLayout {
 
 
     private void scrollView(KeyEvent event) {
+        Log.d(TAG, " scrollView，dispatchKeyEvent");
         if (mMouseManager.getCurrentActivityType() == TcMouseManager.MOUSE_TYPE) {
             int pageScrollBy = 0;
             if (event.getKeyCode() == TcMouseManager.KEYCODE_UP) {
@@ -112,6 +112,7 @@ public class TcMouseView extends FrameLayout {
     }
 
     public void onCenterButtonClicked(KeyEvent event) {
+        Log.d(TAG, " onCenterButtonClicked");
         mMouseManager.sendCenterClickEvent(mMouseX + mOffsetX, mMouseY + mOffsetY, event.getAction());//加一点偏移补�?
     }
 
@@ -125,9 +126,7 @@ public class TcMouseView extends FrameLayout {
 
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
-        Log.i("dispatchKeyEvent",
-                "dispatchKeyEvent(), action=" + event.getAction() + " keycode="
-                        + event.getKeyCode());
+        Log.d(TAG, "dispatchKeyEvent,keycode:" + event.getKeyCode() + ",action:" + event.getAction());// up 19 ,down 20 , left 21, right 22, center 23
         switch (event.getKeyCode()) {
             case TcMouseManager.KEYCODE_UP:
             case TcMouseManager.KEYCODE_DOWN:
@@ -145,7 +144,7 @@ public class TcMouseView extends FrameLayout {
     }
 
     public void moveMouse(KeyEvent event, int times) {
-        Log.d("BdMainView", "wrapper moveMouse() ENTER");
+        Log.d(TAG, " moveMouse");
         mMoveDis = times * TcMouseManager.MOUSE_MOVE_STEP;
         switch (event.getKeyCode()) {
             case TcMouseManager.KEYCODE_UP:

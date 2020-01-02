@@ -17,6 +17,7 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
 import android.os.SystemClock;
+import android.util.Log;
 import android.view.InputDevice;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -28,41 +29,29 @@ import android.view.ViewGroup;
  * @author liuyongkui.
  */
 public class TcMouseManager implements TcMouseView.OnMouseListener {
+    private static final String TAG = "[1]TcMouseManager";
 
     public static final int KEYCODE_UP = KeyEvent.KEYCODE_DPAD_UP;
-
     public static final int KEYCODE_DOWN = KeyEvent.KEYCODE_DPAD_DOWN;
-
     public static final int KEYCODE_LEFT = KeyEvent.KEYCODE_DPAD_LEFT;
-
     public static final int KEYCODE_RIGHT = KeyEvent.KEYCODE_DPAD_RIGHT;
-
     public static final int KEYCODE_CENTER = KeyEvent.KEYCODE_DPAD_CENTER;
 
-    public static final int MOUSE_STARTX = 250;
-
-    public static final int MOUSE_STARY = 350;
-
-    public static final int MOUSE_MOVE_STEP = 15;
 
     public static final int MOUSE_TYPE = 0;
 
+    public static final int MOUSE_STARTX = 250;
+    public static final int MOUSE_STARY = 350;
+    public static final int MOUSE_MOVE_STEP = 15;
+
     private int mCurrentType;
-
     private ViewGroup mParentView;
-
     private TcMouseView mMouseView;
-
     private boolean isShowMouse = true;
-
     private boolean isKeyEventCousumed = false;
-
     private int mSpeed = 1;
-
     private Context mContext;
-
     private int defTimes = 400;
-
     private int defMaxSpeed = 7;
 
     /**
@@ -119,6 +108,7 @@ public class TcMouseManager implements TcMouseView.OnMouseListener {
 
 
     public boolean onDpadClicked(KeyEvent event) {
+        Log.d(TAG, "onDpadClicked,keycode:" + event.getKeyCode() + ",action:" + event.getAction());// up 19 ,down 20 , left 21, right 22, center 23
         if (!isShowMouse) {
             return false;
         }
@@ -149,6 +139,7 @@ public class TcMouseManager implements TcMouseView.OnMouseListener {
     }
 
     private void dispatchKeyEventToMouse(KeyEvent event) {
+        Log.d(TAG, "dispatchKeyEventToMouse");
         if (event.getKeyCode() == KEYCODE_CENTER) {
             mMouseView.onCenterButtonClicked(event);
         } else {
@@ -170,10 +161,12 @@ public class TcMouseManager implements TcMouseView.OnMouseListener {
     private void sendMotionEvent(int x, int y, int action) {
         MotionEvent motionEvent = getMotionEvent(x, y, action);
         if (action == MotionEvent.ACTION_HOVER_MOVE) {
+            Log.d(TAG, "sendMotionEvent ,dispatchGenericMotionEvent");
             motionEvent.setSource(InputDevice.SOURCE_CLASS_POINTER);
             mMouseView.dispatchGenericMotionEvent(motionEvent);
             //mParentView.dispatchGenericMotionEvent(motionEvent);
         } else {
+            Log.d(TAG, "sendMotionEvent ,dispatchTouchEvent");
             //mParentView.dispatchTouchEvent(motionEvent);
             mMouseView.dispatchTouchEvent(motionEvent);
         }

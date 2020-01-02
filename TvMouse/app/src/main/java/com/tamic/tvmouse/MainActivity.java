@@ -152,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
-        Log.d(TAG, "dispatchKeyEvent");
+        Log.d(TAG, "===dispatchKeyEvent===");
         if (mMouseManager != null && mMouseManager.isShowMouse()) {
             return mMouseManager.onDpadClicked(event);
         }
