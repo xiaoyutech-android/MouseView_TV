@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
-
+    private static final String TAG = "MainActivity";
 
     private TcMouseManager mMouseManager;
 
@@ -35,14 +36,12 @@ public class MainActivity extends AppCompatActivity {
         contentView = (ViewGroup) inflater.inflate(R.layout.activity_main, null);
         setContentView(contentView);
         init();
-        //初始化
         initMouse();
         showMouse();
 
     }
 
     private void init() {
-
         webView = (WebView) contentView.findViewById(R.id.web);
         mLoginStatusView = this.findViewById(R.id.login_status);
         mLoaddingMessageView = (TextView) this
@@ -102,6 +101,17 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void initMouse() {
+        mMouseManager = new TcMouseManager();
+        mMouseManager.init(contentView, TcMouseManager.MOUSE_TYPE);
+        mMouseManager.setShowMouse(true);
+    }
+
+    private void showMouse() {
+        mMouseManager.showMouseView();
+
+    }
+
     @SuppressLint("NewApi")
     private void showProgress(final boolean show) {
         // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
@@ -139,27 +149,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void showMouse() {
-
-        mMouseManager.showMouseView();
-
-    }
-
-    public void initMouse() {
-        initMouseMrg();
-    }
-
-    public void initMouseMrg() {
-
-        mMouseManager = new TcMouseManager();
-        mMouseManager.init(contentView, TcMouseManager.MOUSE_TYPE);
-        mMouseManager.setShowMouse(true);
-
-    }
 
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
-
+        Log.d(TAG, "dispatchKeyEvent");
         if (mMouseManager != null && mMouseManager.isShowMouse()) {
             return mMouseManager.onDpadClicked(event);
         }

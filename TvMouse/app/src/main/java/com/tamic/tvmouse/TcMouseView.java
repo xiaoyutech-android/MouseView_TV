@@ -35,17 +35,18 @@ public class TcMouseView extends FrameLayout {
     private TcMouseManager mMouseManager;
 
     private int mMouseX = TcMouseManager.MOUSE_STARTX;
-
     private int mMouseY = TcMouseManager.MOUSE_STARY;
 
     private int mLastMouseX = mMouseX;
-
     private int mLastMouseY = mMouseY;
+
 
     private int mMoveDis = TcMouseManager.MOUSE_MOVE_STEP;
 
-
     private OnMouseListener mOnMouseListener;
+
+
+
 
     public TcMouseView(Context context) {
         super(context);
@@ -98,7 +99,6 @@ public class TcMouseView extends FrameLayout {
 
     private void scrollView(KeyEvent event) {
         if (mMouseManager.getCurrentActivityType() == TcMouseManager.MOUSE_TYPE) {
-
             int pageScrollBy = 0;
             if (event.getKeyCode() == TcMouseManager.KEYCODE_UP) {
                 pageScrollBy = -mMoveDis;
@@ -117,7 +117,6 @@ public class TcMouseView extends FrameLayout {
 
 
     private Bitmap drawableToBitamp(Drawable drawable) {
-
         BitmapDrawable bd = (BitmapDrawable) drawable;
         Bitmap bitmap = bd.getBitmap();
         return Bitmap.createScaledBitmap(bitmap, 50, 50, true);
@@ -131,20 +130,13 @@ public class TcMouseView extends FrameLayout {
                         + event.getKeyCode());
         switch (event.getKeyCode()) {
             case TcMouseManager.KEYCODE_UP:
-
             case TcMouseManager.KEYCODE_DOWN:
-
             case TcMouseManager.KEYCODE_LEFT:
-
             case TcMouseManager.KEYCODE_RIGHT:
-
             case TcMouseManager.KEYCODE_CENTER:
-
                 if (mOnMouseListener != null) {
-
                     return mOnMouseListener.onclick(TcMouseView.this, event);
                 }
-
             default:
                 break;
         }
@@ -195,10 +187,7 @@ public class TcMouseView extends FrameLayout {
      * @author liuyongkui
      */
     public interface OnMouseListener {
-
         boolean onclick(View v, KeyEvent event);
-
-
     }
 
     @Override

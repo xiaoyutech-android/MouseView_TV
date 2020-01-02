@@ -81,7 +81,6 @@ public class TcMouseManager implements TcMouseView.OnMouseListener {
      * @return
      */
     public boolean isShowMouse() {
-
         return isShowMouse;
     }
 
@@ -111,7 +110,6 @@ public class TcMouseManager implements TcMouseView.OnMouseListener {
         ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 
-
         if (mMouseView != null) {
             mParentView.addView(mMouseView, lp);
         }
@@ -121,19 +119,15 @@ public class TcMouseManager implements TcMouseView.OnMouseListener {
 
 
     public boolean onDpadClicked(KeyEvent event) {
-
         if (!isShowMouse) {
             return false;
         }
-
         if (event.getKeyCode() == KEYCODE_CENTER) {
             dispatchKeyEventToMouse(event);
         } else {
             if (event.getAction() == KeyEvent.ACTION_DOWN) {
                 if (!isKeyEventCousumed) {
-
                     if (event.getDownTime() - mLastEventTime < defTimes) {
-
                         if (mSpeed < defMaxSpeed) {
                             mSpeed++;
                         }
@@ -174,11 +168,7 @@ public class TcMouseManager implements TcMouseView.OnMouseListener {
     @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR1)
     @SuppressLint("NewApi")
     private void sendMotionEvent(int x, int y, int action) {
-
-
         MotionEvent motionEvent = getMotionEvent(x, y, action);
-
-
         if (action == MotionEvent.ACTION_HOVER_MOVE) {
             motionEvent.setSource(InputDevice.SOURCE_CLASS_POINTER);
             mMouseView.dispatchGenericMotionEvent(motionEvent);
@@ -207,11 +197,9 @@ public class TcMouseManager implements TcMouseView.OnMouseListener {
     @Override
     public boolean onclick(View v, KeyEvent et) {
         if (isShowMouse()) {
-
             return onDpadClicked(et);
         }
         return mParentView.dispatchKeyEvent(et);
     }
-
 
 }
