@@ -152,7 +152,7 @@ public class TcMouseView extends FrameLayout {
                     mMouseY = mMouseY - mMoveDis;
                 } else {
                     mMouseY = 0;
-                    scrollView(event);
+//                    scrollView(event);
                 }
                 break;
             case TcMouseManager.KEYCODE_LEFT:
@@ -161,9 +161,9 @@ public class TcMouseView extends FrameLayout {
             case TcMouseManager.KEYCODE_DOWN:
                 if (mMouseY + mMoveDis < getMeasuredHeight() - mMoveDis) {
                     mMouseY = mMouseY + mMoveDis;
-                } else {
+                } else {// 超过底部范围
                     mMouseY = getMeasuredHeight() - mOffsetY;
-                    scrollView(event);
+//                    scrollView(event);
                 }
                 break;
             case TcMouseManager.KEYCODE_RIGHT:

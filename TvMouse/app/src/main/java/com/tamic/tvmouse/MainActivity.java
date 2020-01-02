@@ -43,25 +43,25 @@ public class MainActivity extends AppCompatActivity {
 
     private void init() {
         webView = (WebView) contentView.findViewById(R.id.web);
+        WebSettings settings = webView.getSettings();
+        String ua = settings.getUserAgentString();
+        //Mozilla/5.0 (Linux; Android 6.0.1; NL-5101 Build/MXC89L; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/44.0.2403.119 Safari/537.36
+        settings.setUserAgentString("Mozilla/5.0 (iPad; CPU OS 11_0 like Mac OS X) AppleWebKit/604.1.34 (KHTML, like Gecko) Version/11.0 Mobile/15A5341f Safari/604.1");
+        settings.setJavaScriptEnabled(true);
         mLoginStatusView = this.findViewById(R.id.login_status);
-        mLoaddingMessageView = (TextView) this
-                .findViewById(R.id.login_status_message);
+        mLoaddingMessageView = (TextView) this.findViewById(R.id.login_status_message);
         Button button = (Button) contentView.findViewById(R.id.btn_onclick);
         button.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "onclicked ", 1).show();
                 showProgress(true);
                 webView.setVisibility(View.VISIBLE);
+                webView.loadUrl("https://news.163.com/pad/");
 
-                webView.loadUrl("https://www.baidu.com/");
-                WebSettings settings = webView.getSettings();
-                settings.setJavaScriptEnabled(true);
                 webView.setWebViewClient(new WebViewClient() {
                     @Override
-                    public boolean shouldOverrideUrlLoading(WebView view,
-                                                            String url) {
+                    public boolean shouldOverrideUrlLoading(WebView view, String url) {
                         // 返回值是true的时候控制去WebView打开，为false调用系统浏览器或第三方浏览器
                         view.loadUrl(url);
                         return true;
@@ -69,7 +69,6 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onPageFinished(WebView view, String url) {
-
                         super.onPageFinished(view, url);
                     }
 
@@ -78,8 +77,7 @@ public class MainActivity extends AppCompatActivity {
                                                 String description, String failingUrl) {
                         Toast.makeText(MainActivity.this, "加载失败 ",
                                 Toast.LENGTH_LONG).show();
-                        super.onReceivedError(view, errorCode, description,
-                                failingUrl);
+                        super.onReceivedError(view, errorCode, description, failingUrl);
                     }
 
                 });
@@ -98,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
+        button.performClick();
     }
 
     public void initMouse() {

@@ -96,9 +96,7 @@ public class TcMouseManager implements TcMouseView.OnMouseListener {
      * showmouse
      */
     public void showMouseView() {
-        ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-
+        ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         if (mMouseView != null) {
             mParentView.addView(mMouseView, lp);
         }

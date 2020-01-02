@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     tools:context="com.tamic.tvmouse.MainActivity">
 
 
@@ -11,6 +10,7 @@
         android:id="@+id/btn_onclick"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:focusable="true"
         android:marqueeRepeatLimit="marquee_forever"
         android:singleLine="true"
         android:text="请将鼠标移到点击此加载网页 "
@@ -50,5 +50,6 @@
         android:id="@+id/web"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/btn_onclick" />
+        android:layout_below="@id/btn_onclick"
+        android:focusable="true" />
 </RelativeLayout>
