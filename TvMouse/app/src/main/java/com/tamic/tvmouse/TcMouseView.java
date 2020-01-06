@@ -98,13 +98,6 @@ public class TcMouseView extends FrameLayout {
     }
 
 
-
-    public void onCenterButtonClicked(KeyEvent event) {
-        Log.d(TAG, " onCenterButtonClicked");
-        mMouseManager.sendCenterClickEvent(mMouseX + mOffsetX, mMouseY + mOffsetY, event.getAction());//加一点偏移补�?
-    }
-
-
     private Bitmap drawableToBitamp(Drawable drawable) {
         BitmapDrawable bd = (BitmapDrawable) drawable;
         Bitmap bitmap = bd.getBitmap();
@@ -169,6 +162,11 @@ public class TcMouseView extends FrameLayout {
 
     }
 
+    public void onCenterButtonClicked(KeyEvent event) {
+        Log.d(TAG, " onCenterButtonClicked");
+        mMouseManager.sendCenterClickEvent(mMouseX + mOffsetX, mMouseY + mOffsetY, event.getAction());//加一点偏移
+    }
+
     private void scrollView(KeyEvent event) {
         Log.d(TAG, " scrollView，dispatchKeyEvent");
         Scroller mScroller = new Scroller(getContext());
@@ -182,12 +180,13 @@ public class TcMouseView extends FrameLayout {
             }
 //            this.dispatchKeyEvent(event);
 
-
+            mMouseManager.sendScrollEvent(mMouseX + mOffsetX, mMouseY + mOffsetY);
             invalidate();
 //            MainActivity.contentView.dispatchKeyEvent(event);
 
         }
     }
+
     /**
      * @author liuyongkui
      */

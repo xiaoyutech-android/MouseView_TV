@@ -48,6 +48,9 @@ public class MainActivity extends AppCompatActivity {
         //Mozilla/5.0 (Linux; Android 6.0.1; NL-5101 Build/MXC89L; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/44.0.2403.119 Safari/537.36
         settings.setUserAgentString("Mozilla/5.0 (iPad; CPU OS 11_0 like Mac OS X) AppleWebKit/604.1.34 (KHTML, like Gecko) Version/11.0 Mobile/15A5341f Safari/604.1");
         settings.setJavaScriptEnabled(true);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            settings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+        }
         mLoginStatusView = this.findViewById(R.id.login_status);
         mLoaddingMessageView = (TextView) this.findViewById(R.id.login_status_message);
         Button button = (Button) contentView.findViewById(R.id.btn_onclick);
@@ -151,6 +154,15 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
         Log.d(TAG, "===dispatchKeyEvent===");
+        if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
+//            if (webView.canGoBack()) {
+//                webView.goBack();
+//            } else {
+//                moveTaskToBack(true);
+//            }
+            webView.goBack();
+            return true;
+        }
         if (mMouseManager != null && mMouseManager.isShowMouse()) {
             return mMouseManager.onDpadClicked(event);
         }

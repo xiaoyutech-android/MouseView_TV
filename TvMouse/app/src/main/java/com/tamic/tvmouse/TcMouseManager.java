@@ -156,6 +156,14 @@ public class TcMouseManager implements TcMouseView.OnMouseListener {
         sendMotionEvent(downx, downy, MotionEvent.ACTION_HOVER_MOVE);
     }
 
+    //    ACTION_HOVER_ENTER：指针移入到窗口或者View区域，但没有按下。
+    //    ACTION_HOVER_MOVE：指针在窗口或者View区域移动，但没有按下。
+    //    ACTION_HOVER_EXIT：指针移出到窗口或者View区域，但没有按下。
+    //    ACTION_SCROLL： 滚轮滚动，可以触发水平滚动(AXIS_HSCROLL)或者垂直滚动(AXIS_VSCROLL)
+    public void sendScrollEvent(int downx, int downy) {
+        sendMotionEvent(downx, downy, MotionEvent.ACTION_SCROLL);
+    }
+
     @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR1)
     @SuppressLint("NewApi")
     private void sendMotionEvent(int x, int y, int action) {
@@ -164,6 +172,10 @@ public class TcMouseManager implements TcMouseView.OnMouseListener {
             Log.d(TAG, "sendMotionEvent ,dispatchGenericMotionEvent,action:" + action);
             motionEvent.setSource(InputDevice.SOURCE_CLASS_POINTER);
 //            mMouseView.dispatchGenericMotionEvent(motionEvent);
+            mParentView.dispatchGenericMotionEvent(motionEvent);
+        } else if (action == MotionEvent.ACTION_SCROLL) {
+            Log.d(TAG, "sendMotionEvent ,dispatchGenericMotionEvent,action:" + action);
+            motionEvent.setSource(InputDevice.SOURCE_CLASS_POINTER);
             mParentView.dispatchGenericMotionEvent(motionEvent);
         } else {
             Log.d(TAG, "sendMotionEvent ,dispatchTouchEvent,action:" + action);
