@@ -42,17 +42,18 @@ public class TcMouseManager implements TcMouseView.OnMouseListener {
 
     public static final int MOUSE_STARTX = 250;
     public static final int MOUSE_STARY = 350;
-    public static final int MOUSE_MOVE_STEP = 15;
+    public static final int MOUSE_MOVE_STEP = 10;
 
     private int mCurrentType;
+    private Context mContext;
     private ViewGroup mParentView;
     private TcMouseView mMouseView;
+    
     private boolean isShowMouse = true;
     private boolean isKeyEventCousumed = false;
     private int mSpeed = 1;
-    private Context mContext;
     private int defTimes = 400;
-    private int defMaxSpeed = 7;
+    private int defMaxSpeed = 1;
 
     /**
      * @param parent

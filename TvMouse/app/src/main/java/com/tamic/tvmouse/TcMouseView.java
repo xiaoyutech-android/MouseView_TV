@@ -75,8 +75,7 @@ public class TcMouseView extends FrameLayout {
 
     private void init(TcMouseManager manager) {
         mMouseManager = manager;
-        Drawable drawable = getResources().getDrawable(
-                R.mipmap.shubiao);
+        Drawable drawable = getResources().getDrawable(R.mipmap.shubiao);
         mMouseBitmap = drawableToBitamp(drawable);
         mMouseView = new ImageView(getContext());
         mMouseView.setImageBitmap(mMouseBitmap);
@@ -105,8 +104,8 @@ public class TcMouseView extends FrameLayout {
             } else if (event.getKeyCode() == TcMouseManager.KEYCODE_DOWN) {
                 pageScrollBy = mMoveDis;
             }
-            this.dispatchKeyEvent(event);
-            /* MainActivity.contentView.dispatchKeyEvent(event);*/
+//            this.dispatchKeyEvent(event);
+            MainActivity.contentView.dispatchKeyEvent(event);
 
         }
     }
@@ -120,7 +119,7 @@ public class TcMouseView extends FrameLayout {
     private Bitmap drawableToBitamp(Drawable drawable) {
         BitmapDrawable bd = (BitmapDrawable) drawable;
         Bitmap bitmap = bd.getBitmap();
-        return Bitmap.createScaledBitmap(bitmap, 50, 50, true);
+        return Bitmap.createScaledBitmap(bitmap, 30, 30, true);
     }
 
 
