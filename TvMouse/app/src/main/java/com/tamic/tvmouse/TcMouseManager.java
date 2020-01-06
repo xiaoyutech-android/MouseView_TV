@@ -143,7 +143,7 @@ public class TcMouseManager implements TcMouseView.OnMouseListener {
         if (event.getKeyCode() == KEYCODE_CENTER) {
             mMouseView.onCenterButtonClicked(event);
         } else {
-            mMouseView.moveMouse(event, mSpeed);
+            mMouseView.moveMouse(event, mSpeed);// 鼠标移动
         }
     }
 
@@ -161,12 +161,12 @@ public class TcMouseManager implements TcMouseView.OnMouseListener {
     private void sendMotionEvent(int x, int y, int action) {
         MotionEvent motionEvent = getMotionEvent(x, y, action);
         if (action == MotionEvent.ACTION_HOVER_MOVE) {
-            Log.d(TAG, "sendMotionEvent ,dispatchGenericMotionEvent");
+            Log.d(TAG, "sendMotionEvent ,dispatchGenericMotionEvent,action:" + action);
             motionEvent.setSource(InputDevice.SOURCE_CLASS_POINTER);
 //            mMouseView.dispatchGenericMotionEvent(motionEvent);
             mParentView.dispatchGenericMotionEvent(motionEvent);
         } else {
-            Log.d(TAG, "sendMotionEvent ,dispatchTouchEvent");
+            Log.d(TAG, "sendMotionEvent ,dispatchTouchEvent,action:" + action);
             mParentView.dispatchTouchEvent(motionEvent);
 //            mMouseView.dispatchTouchEvent(motionEvent);
         }

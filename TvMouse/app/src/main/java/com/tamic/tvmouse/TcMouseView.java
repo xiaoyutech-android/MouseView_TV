@@ -19,6 +19,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.Scroller;
 
 /**
  * @author liuyongkui
@@ -97,20 +98,6 @@ public class TcMouseView extends FrameLayout {
     }
 
 
-    private void scrollView(KeyEvent event) {
-        Log.d(TAG, " scrollView，dispatchKeyEvent");
-        if (mMouseManager.getCurrentActivityType() == TcMouseManager.MOUSE_TYPE) {
-            int pageScrollBy = 0;
-            if (event.getKeyCode() == TcMouseManager.KEYCODE_UP) {
-                pageScrollBy = -mMoveDis;
-            } else if (event.getKeyCode() == TcMouseManager.KEYCODE_DOWN) {
-                pageScrollBy = mMoveDis;
-            }
-//            this.dispatchKeyEvent(event);
-            MainActivity.contentView.dispatchKeyEvent(event);
-
-        }
-    }
 
     public void onCenterButtonClicked(KeyEvent event) {
         Log.d(TAG, " onCenterButtonClicked");
@@ -177,12 +164,30 @@ public class TcMouseView extends FrameLayout {
 
         mLastMouseX = mMouseX;
         mLastMouseY = mMouseY;
-
         requestLayout();
         mMouseManager.sendMouseHoverEvent(mMouseX + mOffsetX, mMouseY + mOffsetY);
 
     }
 
+    private void scrollView(KeyEvent event) {
+        Log.d(TAG, " scrollView，dispatchKeyEvent");
+        Scroller mScroller = new Scroller(getContext());
+        if (mMouseManager.getCurrentActivityType() == TcMouseManager.MOUSE_TYPE) {
+            int pageScrollBy = 0;
+            if (event.getKeyCode() == TcMouseManager.KEYCODE_UP) {
+                pageScrollBy = -mMoveDis;
+            } else if (event.getKeyCode() == TcMouseManager.KEYCODE_DOWN) {
+                pageScrollBy = mMoveDis;
+//                mScroller.startScroll(this.getScrollX(), this.getScrollY(), this.getScrollX(), -this.getScrollY());
+            }
+//            this.dispatchKeyEvent(event);
+
+
+            invalidate();
+//            MainActivity.contentView.dispatchKeyEvent(event);
+
+        }
+    }
     /**
      * @author liuyongkui
      */
