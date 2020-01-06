@@ -56,23 +56,6 @@ public class TcMouseView extends FrameLayout {
         init(mMouseMrg);
     }
 
-    public OnMouseListener getOnMouseListener() {
-        return mOnMouseListener;
-    }
-
-    public void setOnMouseListener(OnMouseListener mOnMouseListener) {
-        this.mOnMouseListener = mOnMouseListener;
-    }
-
-    @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        if (mMouseView != null && mMouseBitmap != null) {
-            mMouseView.measure(MeasureSpec.makeMeasureSpec(mMouseBitmap.getWidth(), MeasureSpec.EXACTLY),
-                    MeasureSpec.makeMeasureSpec(mMouseBitmap.getHeight(), MeasureSpec.EXACTLY));
-        }
-    }
-
     private void init(TcMouseManager manager) {
         mMouseManager = manager;
         Drawable drawable = getResources().getDrawable(R.mipmap.shubiao);
@@ -85,6 +68,25 @@ public class TcMouseView extends FrameLayout {
         mOffsetX = (int) ((mMouseBitmap.getWidth()) * 30 / 84);
         mOffsetY = (int) ((mMouseBitmap.getHeight()) * 20 / 97);
     }
+
+    public OnMouseListener getOnMouseListener() {
+        return mOnMouseListener;
+    }
+
+    public void setOnMouseListener(OnMouseListener mOnMouseListener) {
+        this.mOnMouseListener = mOnMouseListener;
+    }
+
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        if (mMouseView != null && mMouseBitmap != null) {
+            mMouseView.measure(MeasureSpec.makeMeasureSpec(mMouseBitmap.getWidth(), MeasureSpec.EXACTLY),
+                    MeasureSpec.makeMeasureSpec(mMouseBitmap.getHeight(), MeasureSpec.EXACTLY));
+        }
+    }
+
 
     @Override
     protected void onLayout(boolean changed, int left, int top, int right,
@@ -149,9 +151,9 @@ public class TcMouseView extends FrameLayout {
             case TcMouseManager.KEYCODE_UP:
                 if (mMouseY - mMoveDis >= 0) {
                     mMouseY = mMouseY - mMoveDis;
-                } else {
+                } else {// 超过底部范围，界面要滑动
                     mMouseY = 0;
-//                    scrollView(event);
+                    scrollView(event);
                 }
                 break;
             case TcMouseManager.KEYCODE_LEFT:
@@ -160,9 +162,9 @@ public class TcMouseView extends FrameLayout {
             case TcMouseManager.KEYCODE_DOWN:
                 if (mMouseY + mMoveDis < getMeasuredHeight() - mMoveDis) {
                     mMouseY = mMouseY + mMoveDis;
-                } else {// 超过底部范围
+                } else {// 超过底部范围，界面要滑动
                     mMouseY = getMeasuredHeight() - mOffsetY;
-//                    scrollView(event);
+                    scrollView(event);
                 }
                 break;
             case TcMouseManager.KEYCODE_RIGHT:
