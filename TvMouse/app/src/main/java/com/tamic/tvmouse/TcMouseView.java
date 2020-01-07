@@ -131,7 +131,7 @@ public class TcMouseView extends FrameLayout {
             case TcMouseManager.KEYCODE_UP:
                 if (mMouseY - mMoveDis >= 0) {
                     mMouseY = mMouseY - mMoveDis;
-                } else {// 超过底部范围，界面要滑动
+                } else {// 超过顶部范围，界面要滑动
                     mMouseY = 0;
                     scrollView(event);
                 }
@@ -169,17 +169,14 @@ public class TcMouseView extends FrameLayout {
 
     private void scrollView(KeyEvent event) {
         Log.d(TAG, " scrollView，dispatchKeyEvent");
-        Scroller mScroller = new Scroller(getContext());
         if (mMouseManager.getCurrentActivityType() == TcMouseManager.MOUSE_TYPE) {
             int pageScrollBy = 0;
             if (event.getKeyCode() == TcMouseManager.KEYCODE_UP) {
                 pageScrollBy = -mMoveDis;
             } else if (event.getKeyCode() == TcMouseManager.KEYCODE_DOWN) {
                 pageScrollBy = mMoveDis;
-//                mScroller.startScroll(this.getScrollX(), this.getScrollY(), this.getScrollX(), -this.getScrollY());
             }
 //            this.dispatchKeyEvent(event);
-
             mMouseManager.sendScrollEvent(mMouseX + mOffsetX, mMouseY + mOffsetY);
             invalidate();
 //            MainActivity.contentView.dispatchKeyEvent(event);
